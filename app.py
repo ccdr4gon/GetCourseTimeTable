@@ -37,9 +37,17 @@ class Get_List:
         captcha_elem.send_keys(captcha)
         submit_elem = driver.find_element_by_class_name("auth_login_btn")
         submit_elem.click()
-        # 获取课表
         driver.get("http://eams.uestc.edu.cn/eams/courseTableForStd.action")
-        time.sleep(10)   #等待页面加载
+        time.sleep(3)  # 等待重复登陆页面加载
+        # 如果有重复登陆，踢掉
+        print(driver.page_source)
+        if "踢出" in driver.page_source:
+            print(1111111111111)
+            elem_rederict = driver.find_element_by_link_text("点击此处")
+            elem_rederict.click()
+            driver.implicitly_wait(2)
+        # 获取课表
+        # time.sleep(3)   #等待页面加载
         print(driver.page_source)
         a=driver.find_element_by_class_name("infoTitle")
         print(a)
@@ -47,7 +55,6 @@ class Get_List:
 if __name__ == '__main__':
     get=Get_List()
     get.get_page()
-
 
 
 
@@ -62,12 +69,7 @@ if __name__ == '__main__':
     #这个不行，垃圾教务系统写糊了，会500 driver.get("http://eams.uestc.edu.cn/eams/courseTableForStd!courseTable.action")
     # driver.get("http://eams.uestc.edu.cn/eams/home!submenus.action?menu.id=844")
 
-    # time.sleep(5)
-    # print(driver.page_source)
-    # if "重复登陆" in driver.page_source.encode('utf-8'):
-    #     elem_rederict = driver.find_elements_by_xpath("//a")
-    #     print(elem_rederict.text)
-    #     elem_rederict.click()
+
 
 
 
